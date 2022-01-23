@@ -12,7 +12,7 @@ jobs:
       - name: Check update
         run: |
           deno upgrade
-          echo current_version=`npm view deno-bin version` >> $GITHUB_ENV
+          echo current_version=`npm view @kt3k/deno-bin-test-1 version` >> $GITHUB_ENV
           echo latest_version=`deno -V | awk '{print $2}'` >> $GITHUB_ENV
       - name: Debug
         run: |
