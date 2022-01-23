@@ -15,13 +15,13 @@ jobs:
           echo current_version=`npm view deno-bin version` >> $GITHUB_ENV
           echo latest_version=`deno -V | awk '{print $2}'` >> $GITHUB_ENV
       - name: Bump
-        if: env.latest_version !== env.current_version
+        if: env.latest_version != env.current_version
         run: |
           npm version {{ env.latest_version }}
           echo "//registry.npmjs.org/:_authToken=$NPM_AUTH_TOKEN" > $HOME/.npmrc
           npm publish
       - name: Push changes
-        if: env.latest_version !== env.current_version
+        if: env.latest_version != env.current_version
         uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
