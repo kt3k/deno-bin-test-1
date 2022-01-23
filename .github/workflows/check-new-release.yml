@@ -16,12 +16,12 @@ jobs:
           echo latest_version=`deno -V | awk '{print $2}'` >> $GITHUB_ENV
       - name: Debug
         run: |
-          echo {{ env.latest_version }}
-          echo {{ env.current_version }}
+          echo ${{ env.latest_version }}
+          echo ${{ env.current_version }}
       - name: Bump
         if: env.latest_version != env.current_version
         run: |
-          npm version {{ env.latest_version }}
+          npm version ${{ env.latest_version }}
           echo "//registry.npmjs.org/:_authToken=$NPM_AUTH_TOKEN" > $HOME/.npmrc
           npm publish
       - name: Push changes
