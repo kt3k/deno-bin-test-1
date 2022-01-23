@@ -1,4 +1,4 @@
-name: Daily measurement (latency)
+name: Check new release
 on:
   schedule:
     - cron: '0 0 * * *'
@@ -20,4 +20,9 @@ jobs:
           npm version {{ env.latest_version }}
           echo "//registry.npmjs.org/:_authToken=$NPM_AUTH_TOKEN" > $HOME/.npmrc
           npm publish
-      - uses: stefanzweifel/git-auto-commit-action@v4
+      - name: Push changes
+        if: env.latest_version !== env.current_version
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ github.ref }}
